@@ -1,8 +1,8 @@
-# Chat-Electron
+# Chat
 
 English | [简体中文](README.zh-CN.md)
 
-Chat-Electron is a cross-platform chat application powered by the DeepSeek API. It ships as a web build and as Electron desktop apps for Windows, macOS and Linux. No application backend is required: the client connects directly to the configured API service.
+Chat is a cross-platform chat application powered by the DeepSeek API. It ships as a web build and as Electron desktop apps for Windows, macOS and Linux. No application backend is required: the client connects directly to the configured API service.
 
 Installers are published on [Releases](https://github.com/nickiilord/chat-demo-electron/releases).
 

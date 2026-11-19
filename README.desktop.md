@@ -1,6 +1,6 @@
-# Chat-Electron
+# Chat
 
-Chat-Electron 是使用 Electron 构建的跨平台桌面聊天应用，与网页版共用聊天界面和功能。会话与附件保存在本机的 IndexedDB 中，桌面应用补充了窗口、菜单和用系统浏览器打开外链等桌面能力。
+Chat 是使用 Electron 构建的跨平台桌面聊天应用，与网页版共用聊天界面和功能。会话与附件保存在本机的 IndexedDB 中，桌面应用补充了窗口、菜单和用系统浏览器打开外链等桌面能力。
 
 最新版本和安装包见 [Releases](https://github.com/nickiilord/chat-demo-electron/releases)。
 
@@ -8,9 +8,9 @@ Chat-Electron 是使用 Electron 构建的跨平台桌面聊天应用，与网�
 
 发布产物由 GitHub Actions 构建，命名如下：
 
-- Windows：`Chat-Electron-<version>-win-x64.exe`（NSIS 安装包）
-- macOS：`Chat-Electron-<version>-mac-arm64.dmg`、`Chat-Electron-<version>-mac-x64.dmg`
-- Linux：`Chat-Electron-<version>-linux-x86_64.AppImage`
+- Windows：`Chat-<version>-win-x64.exe`（NSIS 安装包）
+- macOS：`Chat-<version>-mac-arm64.dmg`、`Chat-<version>-mac-x64.dmg`
+- Linux：`Chat-<version>-linux-x86_64.AppImage`
 
 首次打开后，在设置里填入 DeepSeek API Key 即可开始对话。
 
@@ -35,7 +35,7 @@ Chat-Electron 是使用 Electron 构建的跨平台桌面聊天应用，与网�
 
 ### 需要兼容的接口
 
-Chat-Electron不是通用的 OpenAI 兼容客户端，它使用 DeepSeek 的 Anthropic 兼容接口和 DeepSeek 自己的扩展字段。第三方端点必须兼容下面这些请求，否则会出现请求失败或部分功能不可用。
+Chat 不是通用的 OpenAI 兼容客户端，它使用 DeepSeek 的 Anthropic 兼容接口和 DeepSeek 自己的扩展字段。第三方端点必须兼容下面这些请求，否则会出现请求失败或部分功能不可用。
 
 | 用途 | 请求 | 要求 |
 | --- | --- | --- |
@@ -115,7 +115,7 @@ git push origin v0.3.0
 仓库没有配置代码签名证书，发布产物是未签名的：
 
 - Windows：SmartScreen 可能提示“未知发布者”，选择“更多信息”后仍可运行。
-- macOS：首次打开需要右键应用，选择“打开”；如果提示应用已损坏，可在终端执行 `xattr -dr com.apple.quarantine "/Applications/Chat-Electron.app"`。未签名时系统可能拒绝授予麦克风权限，语音输入需要配置 Apple 开发证书签名后才能正常使用。
+- macOS：首次打开需要右键应用，选择“打开”；如果提示应用已损坏，可在终端执行 `xattr -dr com.apple.quarantine "/Applications/Chat.app"`。未签名时系统可能拒绝授予麦克风权限，语音输入需要配置 Apple 开发证书签名后才能正常使用。
 - Linux：AppImage 下载后需要 `chmod +x` 再运行。
 
 ## 安全边界

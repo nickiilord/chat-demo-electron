@@ -1,8 +1,8 @@
-# Chat-Electron
+# Chat
 
 [English](README.md) | 简体中文
 
-Chat-Electron 是一个基于 DeepSeek API 的跨平台聊天应用，提供网页构建和 Windows、macOS、Linux 桌面版本。无需应用后端，客户端直接连接配置的 API 服务。
+Chat 是一个基于 DeepSeek API 的跨平台聊天应用，提供网页构建和 Windows、macOS、Linux 桌面版本。无需应用后端，客户端直接连接配置的 API 服务。
 
 安装包发布在 [Releases](https://github.com/nickiilord/chat-demo-electron/releases)。
 

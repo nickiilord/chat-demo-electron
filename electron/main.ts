@@ -275,7 +275,7 @@ if (!gotSingleInstanceLock) {
       installDownloadHandler()
       buildMenu()
       app.setAboutPanelOptions({
-        applicationName: 'Chat-Electron',
+        applicationName: 'Chat',
         applicationVersion: app.getVersion(),
         version: `Electron ${process.versions.electron}`,
         copyright: 'MIT License',

@@ -1,5 +1,5 @@
 appId: com.nickiilord.chat
-productName: Chat-Electron
+productName: Chat
 copyright: Copyright © 2026 nickiilord
 
 directories:
@@ -37,7 +37,7 @@ nsis:
   allowToChangeInstallationDirectory: true
   createDesktopShortcut: true
   createStartMenuShortcut: true
-  shortcutName: Chat-Electron
+  shortcutName: Chat
   installerLanguages:
     - en_US
     - zh_CN
