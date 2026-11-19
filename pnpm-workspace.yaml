@@ -1,0 +1,6 @@
+# 单包项目，这个文件用于配置 pnpm 对依赖安装脚本的处理。
+# electron-winstaller 和 esbuild 的安装脚本不是运行必需：
+# esbuild 使用平台可选包提供二进制，electron-winstaller 只用于 Squirrel 安装包，
+# 本项目使用 NSIS、DMG 和 AppImage。
+# pnpm 12 默认会在忽略构建脚本时报错，这里改为只警告。
+strictDepBuilds: false
