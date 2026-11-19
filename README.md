@@ -4,6 +4,8 @@ English | [简体中文](README.zh-CN.md)
 
 Chat is a cross-platform chat application powered by the DeepSeek API. It ships as a web build and as Electron desktop apps for Windows, macOS and Linux. No application backend is required: the client connects directly to the configured API service.
 
+Try the web version at [nickiilord.github.io/chat-demo-electron](https://nickiilord.github.io/chat-demo-electron/).
+
 Installers are published on [Releases](https://github.com/nickiilord/chat-demo-electron/releases).
 
 ## Desktop apps

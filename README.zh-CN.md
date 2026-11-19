@@ -4,6 +4,8 @@
 
 Chat 是一个基于 DeepSeek API 的跨平台聊天应用，提供网页构建和 Windows、macOS、Linux 桌面版本。无需应用后端，客户端直接连接配置的 API 服务。
 
+网页版在线地址：[nickiilord.github.io/chat-demo-electron](https://nickiilord.github.io/chat-demo-electron/)。
+
 安装包发布在 [Releases](https://github.com/nickiilord/chat-demo-electron/releases)。
 
 ## 桌面应用
