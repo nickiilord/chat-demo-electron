@@ -7,8 +7,9 @@ export type Locale = 'zh-CN' | 'en-US'
 /** 主题偏好；默认跟随系统 */
 export type ThemePreference = 'light' | 'dark' | 'system'
 
-/** 本机设置，存 localStorage：API Key、语言、主题、位置、朗读音色、深度思考与智能搜索开关、侧边栏收起状态 */
+/** 本机设置，存 localStorage：API 地址、API Key、语言、主题、位置、朗读音色、深度思考与智能搜索开关、侧边栏收起状态 */
 type Settings = {
+  apiOrigin: string
   apiKey: string | null
   locale: Locale
   themePreference: ThemePreference
@@ -20,6 +21,7 @@ type Settings = {
 }
 
 const KEYS = {
+  apiOrigin: 'chat-demo:api-origin',
   apiKey: 'chat-demo:api-key',
   locale: 'chat-demo:locale',
   location: 'chat-demo:location',
@@ -29,6 +31,33 @@ const KEYS = {
   search: 'chat-demo:search',
   siderCollapsed: 'chat-demo:sider-collapsed',
 } as const
+
+/** 构建期注入的默认 API 地址；用户可以在设置里改成其他兼容服务。 */
+export const DEFAULT_API_ORIGIN = __API_ORIGIN__
+
+/**
+ * 校验并规范化 API 地址：只接受 http/https，保留子路径，去掉末尾斜杠、查询参数和锚点。
+ * 返回 null 表示地址无效。
+ */
+export const normalizeApiOrigin = (value: string): string | null => {
+  try {
+    const url = new URL(value.trim())
+    if (url.protocol !== 'https:' && url.protocol !== 'http:') {
+      return null
+    }
+    if (url.username || url.password || url.search || url.hash) {
+      return null
+    }
+    return `${url.origin}${url.pathname.replace(/\/+$/, '')}`
+  } catch {
+    return null
+  }
+}
+
+const initialApiOrigin = (): string => {
+  const saved = read(KEYS.apiOrigin)
+  return (saved && normalizeApiOrigin(saved)) || DEFAULT_API_ORIGIN
+}
 
 const read = (key: string) => {
   try {
@@ -88,6 +117,7 @@ const initialThemePreference = (): ThemePreference => {
 const initialTtsVoice = (): TtsVoice => (read(KEYS.ttsVoice) === 'tide' ? 'tide' : 'stella')
 
 export const useSettings = create<Settings>(() => ({
+  apiOrigin: initialApiOrigin(),
   apiKey: read(KEYS.apiKey),
   locale: initialLocale(),
   location: initialLocation(),
@@ -97,6 +127,11 @@ export const useSettings = create<Settings>(() => ({
   search: read(KEYS.search) === 'true',
   siderCollapsed: read(KEYS.siderCollapsed) === 'true',
 }))
+
+export const setApiOrigin = (apiOrigin: string) => {
+  write(KEYS.apiOrigin, apiOrigin)
+  useSettings.setState({ apiOrigin })
+}
 
 export const setLocale = (locale: Locale) => {
   write(KEYS.locale, locale)

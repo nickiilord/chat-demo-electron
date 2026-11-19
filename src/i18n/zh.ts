@@ -169,4 +169,11 @@ export const zh = {
   latestReminderLanguage: '中文',
   settingsLocaleZhCN: '简体中文',
   settingsLocaleEnUS: 'English',
+  settingsApiEndpoint: 'API 地址',
+  settingsApiEndpointPlaceholder: 'https://api.deepseek.com',
+  settingsApiEndpointDescription:
+    '需要兼容 Anthropic Messages / Files API（/anthropic/v1/messages、/anthropic/v1/files，SSE 流式）和 /models 校验。第三方服务还需支持 DeepSeek 扩展字段、deepseek-flash 模型和 /v1/tools 语音接口，否则相关功能不可用。',
+  settingsApiEndpointInvalid: '请输入以 http:// 或 https:// 开头的有效地址',
+  settingsApiEndpointSaved: 'API 地址已保存，请重新填写 API Key',
+  apiKeyVerificationSkipped: '当前 API 地址不支持 /models 校验，已直接保存 API Key',
 } as const

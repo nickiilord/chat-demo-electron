@@ -5,17 +5,30 @@
   "license": "MIT",
   "private": true,
   "type": "module",
+  "main": "electron-dist/main.cjs",
+  "author": "nickiilord",
   "scripts": {
     "dev": "rspack serve -c rspack.config.ts",
     "build": "rm -rf dist && NODE_ENV=production rspack build -c rspack.config.ts",
     "type": "tsc -p tsconfig.json",
     "lint": "oxlint src rspack.config.ts",
-    "format": "oxfmt --write ."
+    "format": "oxfmt --write .",
+    "build:renderer": "node scripts/build-renderer.mjs",
+    "build:electron": "node scripts/build-electron.mjs",
+    "build:desktop": "node scripts/build-desktop.mjs",
+    "type:electron": "tsc -p electron/tsconfig.json",
+    "start": "electron .",
+    "dev:desktop": "node scripts/dev-desktop.mjs",
+    "pack:dir": "electron-builder --dir --config electron-builder.yml",
+    "dist": "electron-builder --config electron-builder.yml",
+    "dist:win": "electron-builder --win --config electron-builder.yml",
+    "dist:mac": "electron-builder --mac --config electron-builder.yml",
+    "dist:linux": "electron-builder --linux --config electron-builder.yml"
   },
   "dependencies": {
     "@types/katex": "^0.16.5",
     "@types/mdast": "~4.0.3",
-    "@types/prismjs": "^1.26.1",
+    "@types/prismjs": "~1.26.1",
     "@types/react": "~18.3.1",
     "@types/react-dom": "~18.3.0",
     "clsx": "2.1.1",
@@ -40,8 +53,14 @@
     "@rspack/dev-server": "2.0.1",
     "@swc/helpers": "0.5.23",
     "@types/node": "~20.9.2",
+    "electron": "45.4.1",
+    "electron-builder": "26.18.0",
+    "esbuild": "0.28.2",
     "oxfmt": "0.48.0",
     "oxlint": "1.63.0",
     "typescript": "7.0.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["electron", "esbuild"]
   }
 }

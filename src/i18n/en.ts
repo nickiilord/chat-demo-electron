@@ -178,4 +178,12 @@ export const en = {
   latestReminderLanguage: 'English',
   settingsLocaleZhCN: 'Simplified Chinese',
   settingsLocaleEnUS: 'English',
+  settingsApiEndpoint: 'API endpoint',
+  settingsApiEndpointPlaceholder: 'https://api.deepseek.com',
+  settingsApiEndpointDescription:
+    'Requires Anthropic-compatible Messages / Files APIs (/anthropic/v1/messages, /anthropic/v1/files, SSE streaming) and the /models check. Third-party services must also support DeepSeek extensions, the deepseek-flash model, and the /v1/tools speech APIs; otherwise those features will not work.',
+  settingsApiEndpointInvalid: 'Enter a valid URL starting with http:// or https://',
+  settingsApiEndpointSaved: 'API endpoint saved. Enter your API Key again.',
+  apiKeyVerificationSkipped:
+    'This endpoint does not support the /models check. The API Key was saved anyway.',
 } satisfies Record<keyof typeof zh, string>

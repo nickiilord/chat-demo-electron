@@ -3,6 +3,7 @@ import { ApiError, verifyApiKey } from '../../services/api/client.js'
 import { classifyApiError } from '../../services/api/errors.js'
 import { setApiKey } from '../../services/settings.js'
 import { useTranslate } from '../../i18n/index.js'
+import { showToast } from '../base/toastState.js'
 
 /** 输入 API Key 后先用 GET /models 校验，通过才保存 */
 export const useApiKeyForm = (onSaved?: () => void) => {
@@ -40,6 +41,14 @@ export const useApiKeyForm = (onSaved?: () => void) => {
       setValue('')
       onSaved?.()
     } catch (e) {
+      // 部分第三方端点没有 /models，无法校验 Key；此时直接保存，避免配置了地址却用不了。
+      if (e instanceof ApiError && (e.status === 404 || e.status === 405 || e.status === 501)) {
+        setApiKey(apiKey)
+        setValue('')
+        onSaved?.()
+        showToast({ key: 'apiKeyVerificationSkipped' })
+        return
+      }
       setFailure({ cause: e })
     } finally {
       setVerifying(false)

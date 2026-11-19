@@ -1,0 +1,60 @@
+appId: com.nickiilord.chatdemo
+productName: Chat Demo
+copyright: Copyright © 2026 nickiilord
+
+directories:
+  output: release
+  buildResources: resources
+
+# 渲染层与主进程的产物都已打包成自包含文件，不需要任何 node_modules。
+files:
+  - dist/**/*
+  - electron-dist/**/*
+  - package.json
+  - LICENSE
+  - "!**/*.map"
+  - "!node_modules/**/*"
+
+asar: true
+compression: maximum
+npmRebuild: false
+electronLanguages:
+  - en-US
+  - zh-CN
+
+win:
+  target: nsis
+  icon: resources/icon.ico
+  artifactName: ${productName}-${version}-win-${arch}.${ext}
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Chat Demo
+  installerLanguages:
+    - en_US
+    - zh_CN
+  language: "2052"
+  deleteAppDataOnUninstall: false
+
+mac:
+  target: dmg
+  icon: resources/icon.png
+  category: public.app-category.productivity
+  identity: null
+  hardenedRuntime: false
+  gatekeeperAssess: false
+  artifactName: ${productName}-${version}-mac-${arch}.${ext}
+  extendInfo:
+    NSMicrophoneUsageDescription: 语音输入需要使用麦克风 / Voice input needs microphone access.
+
+linux:
+  target: AppImage
+  icon: resources/icon.png
+  category: Utility
+  maintainer: nickiilord
+  artifactName: ${productName}-${version}-linux-${arch}.${ext}
