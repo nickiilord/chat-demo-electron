@@ -1,5 +1,5 @@
-appId: com.nickiilord.yixu
-productName: Yixu
+appId: com.nickiilord.chat-electron
+productName: Chat-Electron
 copyright: Copyright © 2026 nickiilord
 
 directories:
@@ -37,7 +37,7 @@ nsis:
   allowToChangeInstallationDirectory: true
   createDesktopShortcut: true
   createStartMenuShortcut: true
-  shortcutName: 一叙
+  shortcutName: Chat-Electron
   installerLanguages:
     - en_US
     - zh_CN

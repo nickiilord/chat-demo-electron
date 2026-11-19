@@ -1,8 +1,8 @@
-# 一叙（Yixu）
+# Chat-Electron
 
 [English](README.md) | 简体中文
 
-一叙（Yixu）是一个基于 DeepSeek API 的跨平台聊天应用，提供网页构建和 Windows、macOS、Linux 桌面版本。无需应用后端，客户端直接连接配置的 API 服务。
+Chat-Electron 是一个基于 DeepSeek API 的跨平台聊天应用，提供网页构建和 Windows、macOS、Linux 桌面版本。无需应用后端，客户端直接连接配置的 API 服务。
 
 安装包发布在 [Releases](https://github.com/nickiilord/chat-demo-electron/releases)。
 
@@ -64,9 +64,9 @@ API Key 和设置保存在浏览器 localStorage，会话及附件原件保存�
 
 桌面应用使用同一套 IndexedDB 和 localStorage，存放在 Electron 的 userData 目录：
 
-- Windows：`%APPDATA%\yixu`
-- macOS：`~/Library/Application Support/yixu`
-- Linux：`~/.config/yixu`
+- Windows：`%APPDATA%\chat-electron`
+- macOS：`~/Library/Application Support/chat-electron`
+- Linux：`~/.config/chat-electron`
 
 设置中的历史导入导出使用 ZIP 格式。导入会在确认并校验成功后替换全部本地会话和附件；导出包含会话与本地可用的图片原件，不包含 API Key、设置或非图片附件原件。格式与保留范围见[历史导入导出](src/services/chat/history/README.md)。
 

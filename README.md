@@ -1,8 +1,8 @@
-# Yixu (一叙)
+# Chat-Electron
 
 English | [简体中文](README.zh-CN.md)
 
-Yixu (一叙) is a cross-platform chat application powered by the DeepSeek API. It ships as a web build and as Electron desktop apps for Windows, macOS and Linux. No application backend is required: the client connects directly to the configured API service.
+Chat-Electron is a cross-platform chat application powered by the DeepSeek API. It ships as a web build and as Electron desktop apps for Windows, macOS and Linux. No application backend is required: the client connects directly to the configured API service.
 
 Installers are published on [Releases](https://github.com/nickiilord/chat-demo-electron/releases).
 
@@ -64,9 +64,9 @@ Your API key and settings are stored in the browser's localStorage. Conversation
 
 The desktop apps use the same IndexedDB and localStorage, located in Electron's userData directory:
 
-- Windows: `%APPDATA%\yixu`
-- macOS: `~/Library/Application Support/yixu`
-- Linux: `~/.config/yixu`
+- Windows: `%APPDATA%\chat-electron`
+- macOS: `~/Library/Application Support/chat-electron`
+- Linux: `~/.config/chat-electron`
 
 History import and export in Settings use ZIP archives. After confirmation and successful validation, importing replaces all local conversations and attachments. Exports include conversations and locally available original images, but exclude API keys, settings, and original non-image attachments. See the [history import/export documentation (Chinese)](src/services/chat/history/README.md) for the archive format and preservation details.
 

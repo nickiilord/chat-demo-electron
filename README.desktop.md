@@ -1,6 +1,6 @@
-# 一叙（Yixu）
+# Chat-Electron
 
-一叙（Yixu）是使用 Electron 构建的跨平台桌面聊天应用，与网页版共用聊天界面和功能。会话与附件保存在本机的 IndexedDB 中，桌面应用补充了窗口、菜单和用系统浏览器打开外链等桌面能力。
+Chat-Electron 是使用 Electron 构建的跨平台桌面聊天应用，与网页版共用聊天界面和功能。会话与附件保存在本机的 IndexedDB 中，桌面应用补充了窗口、菜单和用系统浏览器打开外链等桌面能力。
 
 最新版本和安装包见 [Releases](https://github.com/nickiilord/chat-demo-electron/releases)。
 
@@ -8,9 +8,9 @@
 
 发布产物由 GitHub Actions 构建，命名如下：
 
-- Windows：`Yixu-<version>-win-x64.exe`（NSIS 安装包）
-- macOS：`Yixu-<version>-mac-arm64.dmg`、`Yixu-<version>-mac-x64.dmg`
-- Linux：`Yixu-<version>-linux-x86_64.AppImage`
+- Windows：`Chat-Electron-<version>-win-x64.exe`（NSIS 安装包）
+- macOS：`Chat-Electron-<version>-mac-arm64.dmg`、`Chat-Electron-<version>-mac-x64.dmg`
+- Linux：`Chat-Electron-<version>-linux-x86_64.AppImage`
 
 首次打开后，在设置里填入 DeepSeek API Key 即可开始对话。
 
@@ -18,9 +18,9 @@
 
 桌面应用使用 Electron 的 userData 目录保存 IndexedDB、localStorage（API Key 和界面设置）等数据：
 
-- Windows：`%APPDATA%\yixu`
-- macOS：`~/Library/Application Support/yixu`
-- Linux：`~/.config/yixu`
+- Windows：`%APPDATA%\chat-electron`
+- macOS：`~/Library/Application Support/chat-electron`
+- Linux：`~/.config/chat-electron`
 
 设置里的导入、导出功能仍然可用，导出的 ZIP 与网页版格式相同，可以在网页版和桌面应用之间迁移会话。
 
@@ -35,7 +35,7 @@
 
 ### 需要兼容的接口
 
-一叙不是通用的 OpenAI 兼容客户端，它使用 DeepSeek 的 Anthropic 兼容接口和 DeepSeek 自己的扩展字段。第三方端点必须兼容下面这些请求，否则会出现请求失败或部分功能不可用。
+Chat-Electron不是通用的 OpenAI 兼容客户端，它使用 DeepSeek 的 Anthropic 兼容接口和 DeepSeek 自己的扩展字段。第三方端点必须兼容下面这些请求，否则会出现请求失败或部分功能不可用。
 
 | 用途 | 请求 | 要求 |
 | --- | --- | --- |
@@ -104,8 +104,8 @@ pnpm dev:desktop
 推送 `v*` 标签会触发 `.github/workflows/release.yml`，在 Windows、macOS（x64 和 arm64）和 Linux 上分别构建，并把安装包附加到对应的 GitHub Release：
 
 ```sh
-git tag v0.2.0
-git push origin v0.2.0
+git tag v0.3.0
+git push origin v0.3.0
 ```
 
 也可以在仓库的 Actions 页面手动运行 `Build desktop releases`，此时产物只作为 workflow artifact 保留，不会创建 Release。
@@ -115,7 +115,7 @@ git push origin v0.2.0
 仓库没有配置代码签名证书，发布产物是未签名的：
 
 - Windows：SmartScreen 可能提示“未知发布者”，选择“更多信息”后仍可运行。
-- macOS：首次打开需要右键应用，选择“打开”；如果提示应用已损坏，可在终端执行 `xattr -dr com.apple.quarantine "/Applications/Yixu.app"`。未签名时系统可能拒绝授予麦克风权限，语音输入需要配置 Apple 开发证书签名后才能正常使用。
+- macOS：首次打开需要右键应用，选择“打开”；如果提示应用已损坏，可在终端执行 `xattr -dr com.apple.quarantine "/Applications/Chat-Electron.app"`。未签名时系统可能拒绝授予麦克风权限，语音输入需要配置 Apple 开发证书签名后才能正常使用。
 - Linux：AppImage 下载后需要 `chmod +x` 再运行。
 
 ## 安全边界
