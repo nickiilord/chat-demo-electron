@@ -19,11 +19,11 @@
     "type:electron": "tsc -p electron/tsconfig.json",
     "start": "electron .",
     "dev:desktop": "node scripts/dev-desktop.mjs",
-    "pack:dir": "electron-builder --dir --config electron-builder.yml",
-    "dist": "electron-builder --config electron-builder.yml",
-    "dist:win": "electron-builder --win --config electron-builder.yml",
-    "dist:mac": "electron-builder --mac --config electron-builder.yml",
-    "dist:linux": "electron-builder --linux --config electron-builder.yml"
+    "pack:dir": "electron-builder --dir --publish never --config electron-builder.yml",
+    "dist": "electron-builder --publish never --config electron-builder.yml",
+    "dist:win": "electron-builder --win --publish never --config electron-builder.yml",
+    "dist:mac": "electron-builder --mac --publish never --config electron-builder.yml",
+    "dist:linux": "electron-builder --linux --publish never --config electron-builder.yml"
   },
   "dependencies": {
     "@types/katex": "^0.16.5",

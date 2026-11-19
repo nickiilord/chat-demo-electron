@@ -18,6 +18,9 @@ files:
 asar: true
 compression: maximum
 npmRebuild: false
+# 发布由 .github/workflows/release.yml 汇总产物后统一创建 Release，
+# 避免 electron-builder 在 CI 上因 git tag 自动发布而缺少 GH_TOKEN。
+publish: null
 electronLanguages:
   - en-US
   - zh-CN
