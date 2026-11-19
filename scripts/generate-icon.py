@@ -1,8 +1,8 @@
-"""生成应用图标：紫蓝渐变底 + 白色圆形对话气泡，输出 PNG 与 Windows ICO。"""
+"""生成扁平化应用图标：纯色圆角底 + 白色字母 C，输出 PNG 与 Windows ICO。"""
 
+import math
 from pathlib import Path
 
-import numpy as np
 from PIL import Image, ImageDraw
 
 SIZE = 1024
@@ -15,62 +15,62 @@ out.mkdir(parents=True, exist_ok=True)
 
 
 def make_background() -> Image.Image:
-    """左上到右下的紫蓝渐变，裁成圆角方块。"""
-    x = np.linspace(0.0, 1.0, W)
-    y = np.linspace(0.0, 1.0, W)
-    xx, yy = np.meshgrid(x, y)
-    t = np.clip(xx * 0.4 + yy * 0.6, 0.0, 1.0)[..., None]
-    start = np.array([124, 58, 237], dtype=float)
-    end = np.array([37, 99, 235], dtype=float)
-    pixels = (start * (1 - t) + end * t).astype(np.uint8)
-    gradient = Image.fromarray(pixels, "RGB").convert("RGBA")
-
+    """扁平的单色圆角方块。"""
+    image = Image.new("RGBA", (W, W), (37, 99, 235, 255))
     mask = Image.new("L", (W, W), 0)
     ImageDraw.Draw(mask).rounded_rectangle(
         [0, 0, W - 1, W - 1], radius=int(230 * SCALE), fill=255
     )
-    gradient.putalpha(mask)
-    return gradient
+    image.putalpha(mask)
+    return image
 
 
-def make_bubble() -> Image.Image:
-    """白色圆形气泡、左下角尾巴，内部三条紫色消息线条。"""
-    bubble = Image.new("RGBA", (W, W), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(bubble)
-    center_x, center_y, radius = 512, 470, 245
+def make_letter_c() -> Image.Image:
+    """圆环遮罩切出缺口，并在两端补圆头，形成干净的字母 C。"""
+    mask = Image.new("L", (W, W), 0)
+    draw = ImageDraw.Draw(mask)
+    center = 512 * SCALE
+    radius = 292 * SCALE
+    line_width = 104 * SCALE
+    outer = radius + line_width / 2
+    inner = radius - line_width / 2
+
     draw.ellipse(
-        [
-            int((center_x - radius) * SCALE),
-            int((center_y - radius) * SCALE),
-            int((center_x + radius) * SCALE),
-            int((center_y + radius) * SCALE),
-        ],
-        fill=(255, 255, 255, 255),
+        [center - outer, center - outer, center + outer, center + outer], fill=255
     )
-    draw.polygon(
-        [
-            (int(355 * SCALE), int(640 * SCALE)),
-            (int(335 * SCALE), int(805 * SCALE)),
-            (int(495 * SCALE), int(690 * SCALE)),
-        ],
-        fill=(255, 255, 255, 255),
+    draw.ellipse(
+        [center - inner, center - inner, center + inner, center + inner], fill=0
     )
-    line_height = 30
-    for left, right, top in ((382, 646, 392), (382, 610, 456), (382, 560, 520)):
-        draw.rounded_rectangle(
-            [
-                int(left * SCALE),
-                int(top * SCALE),
-                int(right * SCALE),
-                int((top + line_height) * SCALE),
-            ],
-            radius=int((line_height / 2) * SCALE),
-            fill=(79, 70, 229, 255),
+
+    # 右侧楔形缺口，开口角度约 96 度。
+    gap_half_angle = 48
+    points = [(center, center)]
+    for angle in range(-gap_half_angle, gap_half_angle + 1, 2):
+        radians = math.radians(angle)
+        points.append(
+            (
+                center + (outer + 10) * math.cos(radians),
+                center + (outer + 10) * math.sin(radians),
+            )
         )
-    return bubble
+    draw.polygon(points, fill=0)
+
+    # 缺口两端画圆头，覆盖楔形留下的直角。
+    for angle in (-gap_half_angle, gap_half_angle):
+        radians = math.radians(angle)
+        x = center + radius * math.cos(radians)
+        y = center + radius * math.sin(radians)
+        draw.ellipse(
+            [x - line_width / 2, y - line_width / 2, x + line_width / 2, y + line_width / 2],
+            fill=255,
+        )
+
+    white = Image.new("RGBA", (W, W), (255, 255, 255, 255))
+    white.putalpha(mask)
+    return white
 
 
-icon = Image.alpha_composite(make_background(), make_bubble())
+icon = Image.alpha_composite(make_background(), make_letter_c())
 icon = icon.resize((SIZE, SIZE), Image.LANCZOS)
 icon.save(out / "icon.png")
 icon.save(

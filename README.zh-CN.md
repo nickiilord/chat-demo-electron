@@ -64,9 +64,9 @@ API Key 和设置保存在浏览器 localStorage，会话及附件原件保存�
 
 桌面应用使用同一套 IndexedDB 和 localStorage，存放在 Electron 的 userData 目录：
 
-- Windows：`%APPDATA%\chat-electron`
-- macOS：`~/Library/Application Support/chat-electron`
-- Linux：`~/.config/chat-electron`
+- Windows：`%APPDATA%\chat`
+- macOS：`~/Library/Application Support/chat`
+- Linux：`~/.config/chat`
 
 设置中的历史导入导出使用 ZIP 格式。导入会在确认并校验成功后替换全部本地会话和附件；导出包含会话与本地可用的图片原件，不包含 API Key、设置或非图片附件原件。格式与保留范围见[历史导入导出](src/services/chat/history/README.md)。
 

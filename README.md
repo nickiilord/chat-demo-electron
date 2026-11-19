@@ -64,9 +64,9 @@ Your API key and settings are stored in the browser's localStorage. Conversation
 
 The desktop apps use the same IndexedDB and localStorage, located in Electron's userData directory:
 
-- Windows: `%APPDATA%\chat-electron`
-- macOS: `~/Library/Application Support/chat-electron`
-- Linux: `~/.config/chat-electron`
+- Windows: `%APPDATA%\chat`
+- macOS: `~/Library/Application Support/chat`
+- Linux: `~/.config/chat`
 
 History import and export in Settings use ZIP archives. After confirmation and successful validation, importing replaces all local conversations and attachments. Exports include conversations and locally available original images, but exclude API keys, settings, and original non-image attachments. See the [history import/export documentation (Chinese)](src/services/chat/history/README.md) for the archive format and preservation details.
 

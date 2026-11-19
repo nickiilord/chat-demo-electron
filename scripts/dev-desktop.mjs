@@ -47,7 +47,7 @@ const start = async () => {
   const app = spawn(electronPath, ['.'], {
     cwd: root,
     stdio: 'inherit',
-    env: { ...process.env, CHAT_ELECTRON_DEV_SERVER: 'http://localhost:8090' },
+    env: { ...process.env, CHAT_DEV_SERVER: 'http://localhost:8090' },
   })
   app.on('exit', (code) => {
     server.kill()

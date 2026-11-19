@@ -18,9 +18,9 @@ Chat-Electron 是使用 Electron 构建的跨平台桌面聊天应用，与网�
 
 桌面应用使用 Electron 的 userData 目录保存 IndexedDB、localStorage（API Key 和界面设置）等数据：
 
-- Windows：`%APPDATA%\chat-electron`
-- macOS：`~/Library/Application Support/chat-electron`
-- Linux：`~/.config/chat-electron`
+- Windows：`%APPDATA%\chat`
+- macOS：`~/Library/Application Support/chat`
+- Linux：`~/.config/chat`
 
 设置里的导入、导出功能仍然可用，导出的 ZIP 与网页版格式相同，可以在网页版和桌面应用之间迁移会话。
 

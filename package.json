@@ -1,5 +1,5 @@
 {
-  "name": "chat-electron",
+  "name": "chat",
   "version": "0.3.0",
   "description": "基于 DeepSeek API 的跨平台聊天应用。",
   "license": "MIT",
