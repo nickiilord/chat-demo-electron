@@ -1,6 +1,6 @@
-# Yixu（一叙）桌面版
+# 一叙（Yixu）
 
-这是 chat-demo 的 Electron 桌面封装。界面和聊天功能与网页版保持一致，会话与附件仍由原项目的 IndexedDB 存储保存，桌面版只是把它们放进 Electron 的应用数据目录，并补上窗口、菜单、系统浏览器打开外链等桌面能力。
+一叙（Yixu）是使用 Electron 构建的跨平台桌面聊天应用，与网页版共用聊天界面和功能。会话与附件保存在本机的 IndexedDB 中，桌面应用补充了窗口、菜单和用系统浏览器打开外链等桌面能力。
 
 最新版本和安装包见 [Releases](https://github.com/nickiilord/chat-demo-electron/releases)。
 
@@ -16,13 +16,13 @@
 
 ## 数据位置
 
-桌面版使用 Electron 的 userData 目录保存 IndexedDB、localStorage（API Key 和界面设置）等数据：
+桌面应用使用 Electron 的 userData 目录保存 IndexedDB、localStorage（API Key 和界面设置）等数据：
 
 - Windows：`%APPDATA%\yixu`
 - macOS：`~/Library/Application Support/yixu`
 - Linux：`~/.config/yixu`
 
-设置里的导入、导出功能仍然可用，导出的 ZIP 与网页版格式相同，可以在网页版和桌面版之间迁移会话。
+设置里的导入、导出功能仍然可用，导出的 ZIP 与网页版格式相同，可以在网页版和桌面应用之间迁移会话。
 
 ## 更换 API 服务
 
@@ -35,7 +35,7 @@
 
 ### 需要兼容的接口
 
-chat-demo 不是通用的 OpenAI 兼容客户端，它使用 DeepSeek 的 Anthropic 兼容接口和 DeepSeek 自己的扩展字段。第三方端点必须兼容下面这些请求，否则会出现请求失败或部分功能不可用。
+一叙不是通用的 OpenAI 兼容客户端，它使用 DeepSeek 的 Anthropic 兼容接口和 DeepSeek 自己的扩展字段。第三方端点必须兼容下面这些请求，否则会出现请求失败或部分功能不可用。
 
 | 用途 | 请求 | 要求 |
 | --- | --- | --- |
@@ -58,7 +58,7 @@ chat-demo 不是通用的 OpenAI 兼容客户端，它使用 DeepSeek 的 Anthro
 
 ### 跨域要求
 
-桌面版用 `file://` 加载页面，请求的 `Origin` 是 `null`。API 服务需要允许这个来源，也就是响应里返回 `Access-Control-Allow-Origin: null` 或 `*`，并且预检请求允许 `x-api-key`、`anthropic-beta`、`content-type` 等请求头。否则请求会在浏览器安全策略这一层被拦截，界面表现为网络错误。
+桌面应用用 `file://` 加载页面，请求的 `Origin` 是 `null`。API 服务需要允许这个来源，也就是响应里返回 `Access-Control-Allow-Origin: null` 或 `*`，并且预检请求允许 `x-api-key`、`anthropic-beta`、`content-type` 等请求头。否则请求会在浏览器安全策略这一层被拦截，界面表现为网络错误。
 
 ## 开发
 

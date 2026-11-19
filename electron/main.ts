@@ -11,10 +11,10 @@ import {
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
-const APP_ID = 'com.nickiilord.chatdemo'
+const APP_ID = 'com.nickiilord.yixu'
 const isDev = !app.isPackaged
 /** 开发时由 scripts 设置，加载 rspack 开发服务器而不是 dist 里的静态文件。 */
-const devServerUrl = process.env.CHAT_DEMO_DEV_SERVER
+const devServerUrl = process.env.YIXU_DEV_SERVER
 
 const DEFAULT_WINDOW_STATE = { width: 1180, height: 820, maximized: false }
 

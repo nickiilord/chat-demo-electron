@@ -1,7 +1,7 @@
 {
   "name": "yixu",
   "version": "0.2.0",
-  "description": "基于 DeepSeek API 的静态聊天示例。",
+  "description": "基于 DeepSeek API 的跨平台聊天应用。",
   "license": "MIT",
   "private": true,
   "type": "module",
