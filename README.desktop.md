@@ -2,6 +2,8 @@
 
 这是 chat-demo 的 Electron 桌面封装。界面和聊天功能与网页版保持一致，会话与附件仍由原项目的 IndexedDB 存储保存，桌面版只是把它们放进 Electron 的应用数据目录，并补上窗口、菜单、系统浏览器打开外链等桌面能力。
 
+最新版本和安装包见 [Releases](https://github.com/nickiilord/chat-demo-electron/releases)。
+
 ## 下载与安装
 
 发布产物由 GitHub Actions 构建，命名如下：
@@ -113,7 +115,7 @@ git push origin v0.2.0
 仓库没有配置代码签名证书，发布产物是未签名的：
 
 - Windows：SmartScreen 可能提示“未知发布者”，选择“更多信息”后仍可运行。
-- macOS：首次打开需要右键应用，选择“打开”；如果提示应用已损坏，可在终端执行 `xattr -dr com.apple.quarantine "/Applications/Yixu.app"`。
+- macOS：首次打开需要右键应用，选择“打开”；如果提示应用已损坏，可在终端执行 `xattr -dr com.apple.quarantine "/Applications/Yixu.app"`。未签名时系统可能拒绝授予麦克风权限，语音输入需要配置 Apple 开发证书签名后才能正常使用。
 - Linux：AppImage 下载后需要 `chmod +x` 再运行。
 
 ## 安全边界
