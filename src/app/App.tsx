@@ -54,7 +54,8 @@ export const App = () => {
 
   useEffect(() => {
     document.documentElement.lang = locale
-  }, [locale])
+    document.title = t('appName')
+  }, [locale, t])
 
   // 文件数、存储空间达到上限时，附件上只显示「上传失败」，原因用 toast 说明
   useEffect(() => onUploadNotice(showToast), [])

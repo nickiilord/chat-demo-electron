@@ -14,7 +14,7 @@ export const en = {
     'Chats or attachments have not been saved locally. Retry before closing this page.',
   sessionDeleteFailed: 'Unable to delete this chat. Please try again.',
   settings: 'Settings',
-  appName: 'API usage demo',
+  appName: 'Yixu',
   deleteSessionModalContentTitle: 'Delete chat?',
   deleteSessionWithFilesDescription:
     'This chat and its uploaded files will be permanently deleted and cannot be recovered. Delete this chat?',
@@ -178,12 +178,22 @@ export const en = {
   latestReminderLanguage: 'English',
   settingsLocaleZhCN: 'Simplified Chinese',
   settingsLocaleEnUS: 'English',
-  settingsApiEndpoint: 'API endpoint',
+  settingsApiEndpoint: 'API configuration',
   settingsApiEndpointPlaceholder: 'https://api.deepseek.com',
+  settingsApiEndpointOfficial: 'Official service',
+  settingsApiEndpointCustom: 'Custom service',
+  settingsApiEndpointOfficialDescription:
+    'Use the official DeepSeek endpoint https://api.deepseek.com with the default model deepseek-flash.',
   settingsApiEndpointDescription:
-    'Requires Anthropic-compatible Messages / Files APIs (/anthropic/v1/messages, /anthropic/v1/files, SSE streaming) and the /models check. Third-party services must also support DeepSeek extensions, the deepseek-flash model, and the /v1/tools speech APIs; otherwise those features will not work.',
+    'Requires Anthropic-compatible Messages / Files APIs (/anthropic/v1/messages, /anthropic/v1/files, SSE streaming) and the /models check. Third-party services must also support DeepSeek extensions, the model name, and the /v1/tools speech APIs; otherwise those features will not work.',
+  settingsApiModel: 'Model',
+  settingsApiModelPlaceholder: 'deepseek-flash',
+  settingsApiModelInvalid:
+    'Model names can only contain letters, digits, dot, underscore, colon and hyphen',
   settingsApiEndpointInvalid: 'Enter a valid URL starting with http:// or https://',
-  settingsApiEndpointSaved: 'API endpoint saved. Enter your API Key again.',
+  settingsApiEndpointSaved: 'API configuration saved. Enter your API Key again.',
+  settingsApiEndpointOfficialSaved:
+    'Switched to the official service. Enter your API Key again.',
   apiKeyVerificationSkipped:
     'This endpoint does not support the /models check. The API Key was saved anyway.',
 } satisfies Record<keyof typeof zh, string>

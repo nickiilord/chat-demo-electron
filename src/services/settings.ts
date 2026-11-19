@@ -7,9 +7,10 @@ export type Locale = 'zh-CN' | 'en-US'
 /** 主题偏好；默认跟随系统 */
 export type ThemePreference = 'light' | 'dark' | 'system'
 
-/** 本机设置，存 localStorage：API 地址、API Key、语言、主题、位置、朗读音色、深度思考与智能搜索开关、侧边栏收起状态 */
+/** 本机设置，存 localStorage：API 地址、模型、API Key、语言、主题、位置、朗读音色、深度思考与智能搜索开关、侧边栏收起状态 */
 type Settings = {
   apiOrigin: string
+  apiModel: string
   apiKey: string | null
   locale: Locale
   themePreference: ThemePreference
@@ -22,6 +23,7 @@ type Settings = {
 
 const KEYS = {
   apiOrigin: 'chat-demo:api-origin',
+  apiModel: 'chat-demo:api-model',
   apiKey: 'chat-demo:api-key',
   locale: 'chat-demo:locale',
   location: 'chat-demo:location',
@@ -34,6 +36,8 @@ const KEYS = {
 
 /** 构建期注入的默认 API 地址；用户可以在设置里改成其他兼容服务。 */
 export const DEFAULT_API_ORIGIN = __API_ORIGIN__
+/** 官方服务使用的默认模型 */
+export const DEFAULT_API_MODEL = 'deepseek-flash'
 
 /**
  * 校验并规范化 API 地址：只接受 http/https，保留子路径，去掉末尾斜杠、查询参数和锚点。
@@ -57,6 +61,11 @@ export const normalizeApiOrigin = (value: string): string | null => {
 const initialApiOrigin = (): string => {
   const saved = read(KEYS.apiOrigin)
   return (saved && normalizeApiOrigin(saved)) || DEFAULT_API_ORIGIN
+}
+
+const initialApiModel = (): string => {
+  const saved = read(KEYS.apiModel)
+  return saved?.trim() || DEFAULT_API_MODEL
 }
 
 const read = (key: string) => {
@@ -118,6 +127,7 @@ const initialTtsVoice = (): TtsVoice => (read(KEYS.ttsVoice) === 'tide' ? 'tide'
 
 export const useSettings = create<Settings>(() => ({
   apiOrigin: initialApiOrigin(),
+  apiModel: initialApiModel(),
   apiKey: read(KEYS.apiKey),
   locale: initialLocale(),
   location: initialLocation(),
@@ -131,6 +141,19 @@ export const useSettings = create<Settings>(() => ({
 export const setApiOrigin = (apiOrigin: string) => {
   write(KEYS.apiOrigin, apiOrigin)
   useSettings.setState({ apiOrigin })
+}
+
+export const setApiModel = (apiModel: string) => {
+  write(KEYS.apiModel, apiModel)
+  useSettings.setState({ apiModel })
+}
+
+/** 官方地址固定使用默认模型；自定义地址使用用户填写的模型。 */
+export const currentApiModel = (): string => {
+  const { apiOrigin, apiModel } = useSettings.getState()
+  return apiOrigin === DEFAULT_API_ORIGIN
+    ? DEFAULT_API_MODEL
+    : apiModel.trim() || DEFAULT_API_MODEL
 }
 
 export const setLocale = (locale: Locale) => {

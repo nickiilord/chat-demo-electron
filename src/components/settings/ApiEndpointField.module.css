@@ -1,0 +1,42 @@
+/* 官方 / 自定义服务的选择按钮 */
+.modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mode {
+  box-sizing: border-box;
+  height: 32px;
+  padding: 0 16px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 100px;
+  background-color: transparent;
+  color: var(--dsw-alias-label-primary);
+  font: inherit;
+  font-size: 14px;
+  line-height: 30px;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  transition:
+    background-color var(--ds-transition-duration) var(--ds-ease-in-out),
+    border-color var(--ds-transition-duration) var(--ds-ease-in-out);
+}
+
+.mode:hover,
+.mode.modeActive {
+  border-color: var(--dsw-alias-brand-primary);
+  background-color: var(--dsw-specific-selector);
+}
+
+.mode:focus-visible {
+  box-shadow: 0 0 0 2px var(--dsw-alias-button-primary-fill);
+}
+
+@media not all and (min-width: 768px) {
+  .mode {
+    height: 40px;
+    line-height: 38px;
+  }
+}

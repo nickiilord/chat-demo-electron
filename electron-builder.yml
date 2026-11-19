@@ -1,5 +1,5 @@
-appId: com.nickiilord.chatdemo
-productName: Chat Demo
+appId: com.nickiilord.yixu
+productName: Yixu
 copyright: Copyright © 2026 nickiilord
 
 directories:
@@ -34,7 +34,7 @@ nsis:
   allowToChangeInstallationDirectory: true
   createDesktopShortcut: true
   createStartMenuShortcut: true
-  shortcutName: Chat Demo
+  shortcutName: 一叙
   installerLanguages:
     - en_US
     - zh_CN

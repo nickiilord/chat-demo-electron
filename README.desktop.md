@@ -1,4 +1,4 @@
-# Chat Demo 桌面版
+# Yixu（一叙）桌面版
 
 这是 chat-demo 的 Electron 桌面封装。界面和聊天功能与网页版保持一致，会话与附件仍由原项目的 IndexedDB 存储保存，桌面版只是把它们放进 Electron 的应用数据目录，并补上窗口、菜单、系统浏览器打开外链等桌面能力。
 
@@ -6,9 +6,9 @@
 
 发布产物由 GitHub Actions 构建，命名如下：
 
-- Windows：`Chat Demo-<version>-win-x64.exe`（NSIS 安装包）
-- macOS：`Chat Demo-<version>-mac-arm64.dmg`、`Chat Demo-<version>-mac-x64.dmg`
-- Linux：`Chat Demo-<version>-linux-x86_64.AppImage`
+- Windows：`Yixu-<version>-win-x64.exe`（NSIS 安装包）
+- macOS：`Yixu-<version>-mac-arm64.dmg`、`Yixu-<version>-mac-x64.dmg`
+- Linux：`Yixu-<version>-linux-x86_64.AppImage`
 
 首次打开后，在设置里填入 DeepSeek API Key 即可开始对话。
 
@@ -16,15 +16,20 @@
 
 桌面版使用 Electron 的 userData 目录保存 IndexedDB、localStorage（API Key 和界面设置）等数据：
 
-- Windows：`%APPDATA%\chat-demo`
-- macOS：`~/Library/Application Support/chat-demo`
-- Linux：`~/.config/chat-demo`
+- Windows：`%APPDATA%\yixu`
+- macOS：`~/Library/Application Support/yixu`
+- Linux：`~/.config/yixu`
 
 设置里的导入、导出功能仍然可用，导出的 ZIP 与网页版格式相同，可以在网页版和桌面版之间迁移会话。
 
 ## 更换 API 服务
 
-默认地址是 `https://api.deepseek.com`。使用第三方中转或自建网关时，打开“设置 → 数据管理”，在最上方的“API 地址”里填写服务地址。地址支持 `http://` 和 `https://`，可以带子路径；保存后立即生效，但已保存的 API Key 属于旧服务，需要重新填写。
+默认使用“官方服务”，即 `https://api.deepseek.com` 和默认模型 `deepseek-flash`。打开“设置 → 数据管理 → API 设置”，可以切换到“自定义服务”，这时会出现两个输入框：
+
+- API 地址：第三方中转或自建网关的地址，支持 `http://` 和 `https://`，可以带子路径。
+- 模型：该服务使用的模型名，默认填入 `deepseek-flash`，可以改成供应商要求的名字。
+
+保存后立即生效。切换官方或自定义服务后，之前保存的 API Key 属于旧服务，需要重新填写。官方服务固定使用默认模型，只有自定义服务会使用填写的模型。
 
 ### 需要兼容的接口
 
@@ -41,7 +46,7 @@ chat-demo 不是通用的 OpenAI 兼容客户端，它使用 DeepSeek 的 Anthro
 
 请求体里还会出现 DeepSeek 特有的字段和值：
 
-- `model: "deepseek-flash"`：当前版本固定使用这个模型名，第三方端点需要支持它，或者在网关里做模型名映射。
+- `model`：由“模型”设置决定，官方服务固定为 `deepseek-flash`。
 - `thinking: { type: "enabled" | "disabled" }`：深度思考。
 - `safety_check: { level: "high" }`：安全审核。
 - `tools` 中的 `deepseek_web_search`（智能搜索）和 `deepseek_read_url`（链接阅读）。
@@ -97,8 +102,8 @@ pnpm dev:desktop
 推送 `v*` 标签会触发 `.github/workflows/release.yml`，在 Windows、macOS（x64 和 arm64）和 Linux 上分别构建，并把安装包附加到对应的 GitHub Release：
 
 ```sh
-git tag v0.1.2
-git push origin v0.1.2
+git tag v0.2.0
+git push origin v0.2.0
 ```
 
 也可以在仓库的 Actions 页面手动运行 `Build desktop releases`，此时产物只作为 workflow artifact 保留，不会创建 Release。
@@ -108,7 +113,7 @@ git push origin v0.1.2
 仓库没有配置代码签名证书，发布产物是未签名的：
 
 - Windows：SmartScreen 可能提示“未知发布者”，选择“更多信息”后仍可运行。
-- macOS：首次打开需要右键应用，选择“打开”；如果提示应用已损坏，可在终端执行 `xattr -dr com.apple.quarantine "/Applications/Chat Demo.app"`。
+- macOS：首次打开需要右键应用，选择“打开”；如果提示应用已损坏，可在终端执行 `xattr -dr com.apple.quarantine "/Applications/Yixu.app"`。
 - Linux：AppImage 下载后需要 `chmod +x` 再运行。
 
 ## 安全边界
