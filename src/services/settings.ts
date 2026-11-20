@@ -148,12 +148,10 @@ export const setApiModel = (apiModel: string) => {
   useSettings.setState({ apiModel })
 }
 
-/** 官方地址固定使用默认模型；自定义地址使用用户填写的模型。 */
+/** 当前使用的模型名；官方和自定义服务都可以配置，默认 deepseek-flash。 */
 export const currentApiModel = (): string => {
-  const { apiOrigin, apiModel } = useSettings.getState()
-  return apiOrigin === DEFAULT_API_ORIGIN
-    ? DEFAULT_API_MODEL
-    : apiModel.trim() || DEFAULT_API_MODEL
+  const { apiModel } = useSettings.getState()
+  return apiModel.trim() || DEFAULT_API_MODEL
 }
 
 export const setLocale = (locale: Locale) => {

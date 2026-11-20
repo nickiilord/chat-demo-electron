@@ -12,7 +12,7 @@ Installers are published on [Releases](https://github.com/nickiilord/chat-demo-e
 
 - Windows x64 NSIS installer, macOS DMG for arm64 and x64, and Linux AppImage.
 - Conversations, attachments, API key and settings stay on the local machine in IndexedDB and localStorage.
-- Settings → Data → API configuration lets you use the official DeepSeek service or a custom compatible endpoint with its own model name. The default is the official service with `deepseek-flash`.
+- Settings → Data → API configuration lets you use the official DeepSeek service or a custom compatible endpoint. The model name is configurable in both modes; the default is `deepseek-flash`.
 - Packaging is intentionally small: only `dist`, `electron-dist`, `package.json` and `LICENSE` are archived, with no `node_modules`, only the `en-US` and `zh-CN` Electron locales, asar and maximum compression.
 - Desktop build steps, data locations and third-party API protocol requirements are documented in [README.desktop.md](README.desktop.md).
 
@@ -58,7 +58,7 @@ pnpm dist:win   # use dist:mac or dist:linux on the matching platform
 - Markdown, syntax highlighting, KaTeX math, and Mermaid diagrams.
 - Simplified Chinese and English, light and dark themes, mobile layouts, location settings, and chat history import and export.
 - Desktop apps with window state, system-browser links, download save dialogs, microphone permission handling, and a hidden menu bar on Windows and Linux.
-- Configurable API service and model name for third-party DeepSeek-compatible endpoints.
+- Configurable API service and model name for the official service and third-party DeepSeek-compatible endpoints.
 
 ## Data and storage
 

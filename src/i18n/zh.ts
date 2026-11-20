@@ -174,11 +174,12 @@ export const zh = {
   settingsApiEndpointOfficial: '官方服务',
   settingsApiEndpointCustom: '自定义服务',
   settingsApiEndpointOfficialDescription:
-    '使用 DeepSeek 官方地址 https://api.deepseek.com 和默认模型 deepseek-flash。',
+    '使用 DeepSeek 官方地址 https://api.deepseek.com。模型默认 deepseek-flash，可以改成 deepseek-v4-pro 等其他官方模型。',
   settingsApiEndpointDescription:
     '需要兼容 Anthropic Messages / Files API（/anthropic/v1/messages、/anthropic/v1/files，SSE 流式）和 /models 校验。第三方服务还需支持 DeepSeek 扩展字段、模型名和 /v1/tools 语音接口，否则相关功能不可用。',
   settingsApiModel: '模型',
   settingsApiModelPlaceholder: 'deepseek-flash',
+  settingsApiModelSaved: '模型已保存',
   settingsApiModelInvalid: '模型名只能包含字母、数字、点、下划线、冒号和连字符',
   settingsApiEndpointInvalid: '请输入以 http:// 或 https:// 开头的有效地址',
   settingsApiEndpointSaved: 'API 设置已保存，请重新填写 API Key',

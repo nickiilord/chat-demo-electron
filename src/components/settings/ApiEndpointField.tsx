@@ -2,7 +2,6 @@ import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 import { useTranslate } from '../../i18n/index.js'
 import {
-  DEFAULT_API_MODEL,
   DEFAULT_API_ORIGIN,
   normalizeApiOrigin,
   setApiModel,
@@ -18,8 +17,8 @@ type Mode = 'official' | 'custom'
 const MODEL_PATTERN = /^[A-Za-z0-9._:/-]+$/
 
 /**
- * API 设置：默认使用官方服务；选择自定义服务后展开地址和模型输入框。
- * 官方服务固定使用默认模型，切换后需要重新填写对应服务的 API Key。
+ * API 设置：默认使用官方服务，也可以切换到第三方兼容服务。
+ * 两种模式都可以修改模型名，官方服务默认使用 deepseek-flash。
  */
 export const ApiEndpointField = () => {
   const t = useTranslate()
@@ -39,45 +38,44 @@ export const ApiEndpointField = () => {
     setModel(apiModel)
   }, [apiOrigin, apiModel])
 
-  const selectMode = (next: Mode) => {
-    if (next === mode) {
-      return
+  const validateModel = (): string | null => {
+    const modelName = model.trim()
+    if (!modelName || !MODEL_PATTERN.test(modelName)) {
+      setError(t('settingsApiModelInvalid'))
+      return null
     }
-    setError(null)
-    setMode(next)
-    if (next === 'official') {
-      if (apiOrigin !== DEFAULT_API_ORIGIN) {
-        setApiOrigin(DEFAULT_API_ORIGIN)
-        setApiModel(DEFAULT_API_MODEL)
-        showToast({ key: 'settingsApiEndpointOfficialSaved' })
-      }
-      setOrigin('')
-      setModel(DEFAULT_API_MODEL)
-      return
-    }
-    setOrigin(apiOrigin === DEFAULT_API_ORIGIN ? '' : apiOrigin)
-    setModel(apiModel)
+    return modelName
   }
 
-  const save = () => {
+  const saveOfficialModel = () => {
+    const modelName = validateModel()
+    if (!modelName) {
+      return
+    }
+    const wasCustom = apiOrigin !== DEFAULT_API_ORIGIN
+    setError(null)
+    if (wasCustom) {
+      setApiOrigin(DEFAULT_API_ORIGIN)
+    }
+    setApiModel(modelName)
+    setMode('official')
+    setOrigin('')
+    setModel(modelName)
+    showToast({ key: wasCustom ? 'settingsApiEndpointOfficialSaved' : 'settingsApiModelSaved' })
+  }
+
+  const saveCustom = () => {
     const normalized = normalizeApiOrigin(origin)
     if (!normalized) {
       setError(t('settingsApiEndpointInvalid'))
       return
     }
     if (normalized === DEFAULT_API_ORIGIN) {
-      setApiOrigin(DEFAULT_API_ORIGIN)
-      setApiModel(DEFAULT_API_MODEL)
-      setMode('official')
-      setOrigin('')
-      setModel(DEFAULT_API_MODEL)
-      setError(null)
-      showToast({ key: 'settingsApiEndpointOfficialSaved' })
+      saveOfficialModel()
       return
     }
-    const modelName = model.trim()
-    if (!modelName || !MODEL_PATTERN.test(modelName)) {
-      setError(t('settingsApiModelInvalid'))
+    const modelName = validateModel()
+    if (!modelName) {
       return
     }
     setError(null)
@@ -88,6 +86,60 @@ export const ApiEndpointField = () => {
     setModel(modelName)
     showToast({ key: 'settingsApiEndpointSaved' })
   }
+
+  const selectMode = (next: Mode) => {
+    if (next === mode) {
+      return
+    }
+    setError(null)
+    setMode(next)
+    if (next === 'official') {
+      if (apiOrigin !== DEFAULT_API_ORIGIN) {
+        setApiOrigin(DEFAULT_API_ORIGIN)
+        setOrigin('')
+        showToast({ key: 'settingsApiEndpointOfficialSaved' })
+      }
+      setModel(apiModel)
+      return
+    }
+    setOrigin(apiOrigin === DEFAULT_API_ORIGIN ? '' : apiOrigin)
+    setModel(apiModel)
+  }
+
+  const modelInput = (
+    <div className={styles.apiKeyInput}>
+      <input
+        type="text"
+        spellCheck={false}
+        autoComplete="off"
+        aria-label={t('settingsApiModel')}
+        placeholder={t('settingsApiModelPlaceholder')}
+        value={model}
+        onChange={(event) => {
+          setModel(event.target.value)
+          setError(null)
+        }}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' && !event.nativeEvent.isComposing) {
+            if (mode === 'official') {
+              saveOfficialModel()
+            } else {
+              saveCustom()
+            }
+          }
+        }}
+      />
+      <span className={styles.divider} />
+      <button
+        type="button"
+        className={styles.confirm}
+        onMouseDown={(event) => event.preventDefault()}
+        onClick={mode === 'official' ? saveOfficialModel : saveCustom}
+      >
+        {t('confirm')}
+      </button>
+    </div>
+  )
 
   return (
     <div className={styles.cell}>
@@ -115,9 +167,12 @@ export const ApiEndpointField = () => {
         </div>
 
         {mode === 'official' ? (
-          <div className={styles.description}>
-            {t('settingsApiEndpointOfficialDescription')}
-          </div>
+          <>
+            <div className={styles.description}>
+              {t('settingsApiEndpointOfficialDescription')}
+            </div>
+            {modelInput}
+          </>
         ) : (
           <>
             <div className={styles.apiKeyInput}>
@@ -134,39 +189,12 @@ export const ApiEndpointField = () => {
                 }}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter' && !event.nativeEvent.isComposing) {
-                    save()
+                    saveCustom()
                   }
                 }}
               />
             </div>
-            <div className={styles.apiKeyInput}>
-              <input
-                type="text"
-                spellCheck={false}
-                autoComplete="off"
-                aria-label={t('settingsApiModel')}
-                placeholder={t('settingsApiModelPlaceholder')}
-                value={model}
-                onChange={(event) => {
-                  setModel(event.target.value)
-                  setError(null)
-                }}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' && !event.nativeEvent.isComposing) {
-                    save()
-                  }
-                }}
-              />
-              <span className={styles.divider} />
-              <button
-                type="button"
-                className={styles.confirm}
-                onMouseDown={(event) => event.preventDefault()}
-                onClick={save}
-              >
-                {t('confirm')}
-              </button>
-            </div>
+            {modelInput}
             <div className={styles.description}>{t('settingsApiEndpointDescription')}</div>
           </>
         )}

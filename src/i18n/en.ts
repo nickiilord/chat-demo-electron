@@ -183,11 +183,12 @@ export const en = {
   settingsApiEndpointOfficial: 'Official service',
   settingsApiEndpointCustom: 'Custom service',
   settingsApiEndpointOfficialDescription:
-    'Use the official DeepSeek endpoint https://api.deepseek.com with the default model deepseek-flash.',
+    'Uses the official DeepSeek endpoint https://api.deepseek.com. The default model is deepseek-flash; change it to deepseek-v4-pro or another official model if needed.',
   settingsApiEndpointDescription:
     'Requires Anthropic-compatible Messages / Files APIs (/anthropic/v1/messages, /anthropic/v1/files, SSE streaming) and the /models check. Third-party services must also support DeepSeek extensions, the model name, and the /v1/tools speech APIs; otherwise those features will not work.',
   settingsApiModel: 'Model',
   settingsApiModelPlaceholder: 'deepseek-flash',
+  settingsApiModelSaved: 'Model saved',
   settingsApiModelInvalid:
     'Model names can only contain letters, digits, dot, underscore, colon and hyphen',
   settingsApiEndpointInvalid: 'Enter a valid URL starting with http:// or https://',

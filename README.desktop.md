@@ -26,12 +26,14 @@ Chat 是使用 Electron 构建的跨平台桌面聊天应用，与网页版共�
 
 ## 更换 API 服务
 
-默认使用“官方服务”，即 `https://api.deepseek.com` 和默认模型 `deepseek-flash`。打开“设置 → 数据管理 → API 设置”，可以切换到“自定义服务”，这时会出现两个输入框：
+默认使用“官方服务”，即 `https://api.deepseek.com`。打开“设置 → 数据管理 → API 设置”后，模型名在官方服务下也可以修改，默认是 `deepseek-flash`，需要时可以改成 `deepseek-v4-pro` 等其他官方模型。
+
+切换到“自定义服务”后会显示两个输入框：
 
 - API 地址：第三方中转或自建网关的地址，支持 `http://` 和 `https://`，可以带子路径。
 - 模型：该服务使用的模型名，默认填入 `deepseek-flash`，可以改成供应商要求的名字。
 
-保存后立即生效。切换官方或自定义服务后，之前保存的 API Key 属于旧服务，需要重新填写。官方服务固定使用默认模型，只有自定义服务会使用填写的模型。
+保存后立即生效。切换官方或自定义服务后，之前保存的 API Key 属于旧服务，需要重新填写。
 
 ### 需要兼容的接口
 
@@ -48,7 +50,7 @@ Chat 不是通用的 OpenAI 兼容客户端，它使用 DeepSeek 的 Anthropic �
 
 请求体里还会出现 DeepSeek 特有的字段和值：
 
-- `model`：由“模型”设置决定，官方服务固定为 `deepseek-flash`。
+- `model`：由“模型”设置决定，默认 `deepseek-flash`。
 - `thinking: { type: "enabled" | "disabled" }`：深度思考。
 - `safety_check: { level: "high" }`：安全审核。
 - `tools` 中的 `deepseek_web_search`（智能搜索）和 `deepseek_read_url`（链接阅读）。
@@ -104,8 +106,8 @@ pnpm dev:desktop
 推送 `v*` 标签会触发 `.github/workflows/release.yml`，在 Windows、macOS（x64 和 arm64）和 Linux 上分别构建，并把安装包附加到对应的 GitHub Release：
 
 ```sh
-git tag v0.3.0
-git push origin v0.3.0
+git tag v0.3.1
+git push origin v0.3.1
 ```
 
 也可以在仓库的 Actions 页面手动运行 `Build desktop releases`，此时产物只作为 workflow artifact 保留，不会创建 Release。

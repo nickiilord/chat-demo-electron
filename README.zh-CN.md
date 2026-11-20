@@ -12,7 +12,7 @@ Chat 是一个基于 DeepSeek API 的跨平台聊天应用，提供网页构建�
 
 - 提供 Windows x64 安装包、macOS DMG（arm64 和 x64）以及 Linux AppImage。
 - 会话、附件、API Key 和设置都保存在本机，使用 IndexedDB 和 localStorage。
-- 设置 → 数据管理 → API 设置可以在官方服务和自定义服务之间切换；自定义服务可以填写兼容的服务地址和模型名。默认使用官方服务和 `deepseek-flash`。
+- 设置 → 数据管理 → API 设置可以在官方服务和自定义服务之间切换，两种模式都可以修改模型名，默认使用官方服务和 `deepseek-flash`。
 - 打包只包含 `dist`、`electron-dist`、`package.json` 和 `LICENSE`，不包含 `node_modules`；只保留 `en-US` 和 `zh-CN` 两种 Electron 语言资源，使用 asar 和 maximum 压缩。
 - 桌面应用的构建命令、数据位置和第三方 API 协议要求见 [README.desktop.md](README.desktop.md)。
 
@@ -58,7 +58,7 @@ pnpm dist:win   # 在对应平台上使用 dist:mac 或 dist:linux
 - Markdown、代码高亮、KaTeX 公式和 Mermaid 图表。
 - 简体中文与英文、浅色与深色主题、移动端布局、位置设置、历史导入导出。
 - 桌面应用支持窗口尺寸记忆、系统浏览器打开外链、下载保存对话框、麦克风权限处理，Windows 和 Linux 默认隐藏菜单栏。
-- 支持在官方服务和第三方 DeepSeek 兼容服务之间切换，并可配置自定义模型名。
+- 支持在官方服务和第三方 DeepSeek 兼容服务之间切换，并可配置模型名。
 
 ## 数据
 
